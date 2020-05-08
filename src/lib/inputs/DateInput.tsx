@@ -29,8 +29,10 @@ export default function DateInput({
       style={{ width: "100%" }}
     >
       <DatePicker
+        placeholder={title}
         format={format || undefined}
         picker={picker}
+        allowClear
         onChange={(e) => {
           onChange({ [name]: e });
         }}

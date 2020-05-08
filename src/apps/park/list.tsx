@@ -14,11 +14,15 @@ export default function list({}: Props): ReactElement {
         title="Liste des Véhicules de Rail Logistic"
         columns={columns}
         filters={filters}
-        createLink=""
+        createLink="/park/vehicules/create"
         actions={[]}
         initVariables={{}}
         deleteColumn={false}
-        updateColumn={false}
+        updateColumn={true}
+        updateInputs={{
+          title: "mettre à jour",
+          fields: [],
+        }}
         history={browserHistory}
         graphql={{
           all: ALL_ENGINES,

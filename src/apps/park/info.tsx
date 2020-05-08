@@ -36,8 +36,9 @@ export const parkInputs: FormInputType = {
     {
       name: "model",
       title: "Model",
+      required: true,
       properties: {
-        divide: "engine_type.designation",
+        divider: "engine_type.designation",
         type: "select",
         query: simple_query("enginemodels", [
           "designation",
@@ -52,6 +53,7 @@ export const parkInputs: FormInputType = {
     },
     {
       name: "matricule",
+      required: true,
       title: "Matricule",
       properties: { type: "text" },
     },

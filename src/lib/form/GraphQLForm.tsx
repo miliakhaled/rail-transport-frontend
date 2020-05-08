@@ -48,12 +48,13 @@ export default function GraphQLForm({
   const [clear, setClear] = useState(false);
   const handleOnFinish = (values: Store) => {
     const newInput = buildInput(values);
+
     doMutation({ variables: { input: newInput } })
       .then((d) => {
         if (checkResponse && checkResponse(d)) {
           // if (!clear) history && history.push(redirect);
           // else {
-          form.resetFields();
+          //form.resetFields();
           // }
           message.success("Élément créé avec succès");
         }

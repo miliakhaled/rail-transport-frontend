@@ -8,12 +8,14 @@ interface Props {}
 export default function create({}: Props): ReactElement {
   return (
     <GraphQLForm
+      label
+      buildInput={(values) => ({ ...values, year: values.year?.year() })}
       title="Nouvelle Véhicule"
       span={12}
       history={browserHistory}
       inputs={inputs}
       initialValues={{}}
-      mutation={createMutation("create_nested_client", "CreateClientInput!")}
+      mutation={createMutation("create_engine", "EngineCreateGenericType!")}
     />
   );
 }

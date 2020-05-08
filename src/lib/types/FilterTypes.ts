@@ -37,7 +37,7 @@ export type SelectType = {
   /**
    * The field to divide the list by it ex: divide the list by year
    */
-  divide?: string;
+  divider?: string;
   /**
    * the path to access the identifier ex: "client.id"
    */

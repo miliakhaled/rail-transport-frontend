@@ -4,6 +4,7 @@ import React from "react";
 import _ from "lodash";
 import { InputsType } from "./types";
 import { SelectType } from "../types/FilterTypes";
+const { Option, OptGroup } = Select;
 
 export default function SelectControl({
   fieldDef,
@@ -22,7 +23,7 @@ export default function SelectControl({
     show = "designation",
     identifier = "id",
     get_items,
-    divide,
+    divider,
   } = fieldDef.properties as SelectType;
   const { size = "large", name, title, required, rules = [] } = fieldDef;
 
@@ -42,7 +43,8 @@ export default function SelectControl({
   const onValueChange = (e: any) => {
     onChange({ [name]: e });
   };
-  console.log(_.groupBy(items, divide));
+  const groupedOptions = divider ? _.groupBy(items, divider) : null;
+  const options = groupedOptions ? Object.keys(groupedOptions) : null;
 
   return (
     <Form.Item
@@ -89,11 +91,22 @@ export default function SelectControl({
         {/* {additional.map(c => (
                     <option value={c[identifier]}>{c[column]}</option>
                 ))} */}
-        {items.map((c: any) => (
-          <Select.Option key={c[identifier]} value={c[identifier]}>
-            {c[show]}
-          </Select.Option>
-        ))}
+
+        {divider && groupedOptions && options
+          ? options?.map((o) => (
+              <OptGroup label={o}>
+                {groupedOptions[o].map((c: any) => (
+                  <Option key={c[identifier]} value={c[identifier]}>
+                    {c[show]}
+                  </Option>
+                ))}
+              </OptGroup>
+            ))
+          : items.map((c: any) => (
+              <Option key={c[identifier]} value={c[identifier]}>
+                {c[show]}
+              </Option>
+            ))}
       </Select>
     </Form.Item>
   );

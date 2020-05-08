@@ -18,6 +18,7 @@ import {
 
 import _ from "lodash";
 import RLTable, { ActionsType } from "./RLTable";
+import { FormInputType } from "../form/types";
 
 export interface QueryType {
   all: DocumentNode;
@@ -42,7 +43,7 @@ export interface GraphQLTableProps {
   history?: RouteComponentProps["history"];
   initVariables?: OperationVariables;
   // filters?: any[];
-  updateInputs?: any[];
+  updateInputs?: FormInputType;
   variables?: OperationVariables;
   // onVariablesChange?: (e: any) => void;
 }

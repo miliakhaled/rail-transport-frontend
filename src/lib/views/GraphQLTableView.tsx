@@ -6,7 +6,7 @@ import { OperationVariables } from "apollo-boost";
 import { ViewToolbar } from ".";
 import { useForm } from "antd/lib/form/util";
 import { InputFieldType, InputUnionType } from "../types/FilterTypes";
-import { FieldType } from "../form/types";
+import { FieldType, FormInputType } from "../form/types";
 import { ActionsType } from "../table/RLTable";
 
 interface Props {
@@ -25,7 +25,7 @@ interface Props {
   history?: RouteComponentProps["history"];
   initVariables?: OperationVariables;
   filters?: FieldType[];
-  updateInputs?: any[];
+  updateInputs?: FormInputType;
   resultTitle?: string;
 }
 

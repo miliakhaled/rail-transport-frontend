@@ -13,6 +13,7 @@ export const ALL_ENGINES = gql`
         nature
         year
       }
+      totalCount
     }
   }
 `;
