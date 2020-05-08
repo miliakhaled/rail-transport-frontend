@@ -7,6 +7,7 @@ import { ViewToolbar } from ".";
 import { useForm } from "antd/lib/form/util";
 import { InputFieldType, InputUnionType } from "../types/FilterTypes";
 import { FieldType } from "../form/types";
+import { ActionsType } from "../table/RLTable";
 
 interface Props {
   title?: string;
@@ -18,7 +19,7 @@ interface Props {
   isUpdatable?: () => boolean;
   isDeletable?: () => boolean;
   expand?: any;
-  actions?: ColumnsType;
+  actions?: ActionsType[];
   updateColumn?: boolean;
   deleteColumn?: boolean;
   history?: RouteComponentProps["history"];
@@ -64,7 +65,7 @@ export default function GraphQLTableView({
 
       <GraphQLTable
         actions={actions}
-        title=""
+        title={title}
         columns={columns}
         graphql={{ all, delete: deleteMutation, update }}
         variables={variables}

@@ -49,7 +49,7 @@ def createComponent(path):
                        'history={browserHistory}\n',
                        'inputs={inputs}\n',
                        'initialValues={{}}\n',
-                       'mutation={creatMutation("create_nested_client","CreateClientInput!" ')}\n',
+                       'mutation={creatMutation("create_nested_client","CreateClientInput!" )}\n',
                        '/>\n',
                        '  );\n',
                        '}\n'])

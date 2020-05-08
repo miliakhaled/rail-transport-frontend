@@ -17,7 +17,7 @@ import {
 } from "@ant-design/icons";
 
 import _ from "lodash";
-import RLTable from "./RLTable";
+import RLTable, { ActionsType } from "./RLTable";
 
 export interface QueryType {
   all: DocumentNode;
@@ -26,7 +26,7 @@ export interface QueryType {
 }
 const { confirm } = Modal;
 export interface GraphQLTableProps {
-  title: string;
+  title?: string;
   columns: ColumnsType;
   graphql: QueryType;
   createLink?: string;
@@ -36,7 +36,7 @@ export interface GraphQLTableProps {
   isUpdatable?: (e: any) => boolean;
   isDeletable?: (e: any) => boolean;
   expand?: any;
-  actions?: ColumnsType;
+  actions?: ActionsType[];
   updateColumn?: boolean;
   deleteColumn?: boolean;
   history?: RouteComponentProps["history"];
