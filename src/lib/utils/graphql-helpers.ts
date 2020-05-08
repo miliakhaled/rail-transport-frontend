@@ -77,7 +77,7 @@ export const createNestedUpdateMutation = (
 
 export const simple_query = (
   operation: string,
-  fields: string[] = ["designation"],
+  fields: (string | object)[] = ["designation"],
   variables?: object
 ): DocumentNode => {
   return gql(

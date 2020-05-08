@@ -22,6 +22,7 @@ export default function SelectControl({
     show = "designation",
     identifier = "id",
     get_items,
+    divide,
   } = fieldDef.properties as SelectType;
   const { size = "large", name, title, required, rules = [] } = fieldDef;
 
@@ -41,6 +42,7 @@ export default function SelectControl({
   const onValueChange = (e: any) => {
     onChange({ [name]: e });
   };
+  console.log(_.groupBy(items, divide));
 
   return (
     <Form.Item

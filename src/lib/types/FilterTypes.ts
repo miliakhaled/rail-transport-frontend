@@ -35,6 +35,10 @@ export type SelectType = {
   type: "select";
   query: DocumentNode;
   /**
+   * The field to divide the list by it ex: divide the list by year
+   */
+  divide?: string;
+  /**
    * the path to access the identifier ex: "client.id"
    */
   get?: string;

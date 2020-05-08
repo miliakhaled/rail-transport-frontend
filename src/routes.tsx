@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { ClientList, ClientCreate } from "./apps/clients";
 import { contactList, contactCreate } from "./apps/clients/contact";
+import { ParkList, ParkCreate } from "./apps/park";
 
 interface RouteProps {
   path: string;
@@ -26,5 +27,13 @@ export const routes: RouteProps[] = [
   {
     path: "/clients/contacts/new",
     component: contactCreate,
+  },
+  {
+    path: "/park/vehicules/list",
+    component: ParkList,
+  },
+  {
+    path: "/park/vehicules/create",
+    component: ParkCreate,
   },
 ];

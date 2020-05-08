@@ -94,6 +94,7 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
     },
     fetchPolicy: "cache-and-network",
   });
+
   let deleteItem: any;
   try {
     [deleteItem] = useMutation(graphql.delete);

@@ -47,4 +47,18 @@ export const links: LinkType[] = [
       },
     ],
   },
+  {
+    title: "Park",
+    type: "multiple",
+    pages: [
+      {
+        href: "/park/vehicules/list",
+        title: "List",
+      },
+      {
+        href: "/park/vehicules/create",
+        title: "Nouveau Véhicule",
+      },
+    ],
+  },
 ];

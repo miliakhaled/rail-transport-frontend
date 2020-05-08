@@ -27,7 +27,7 @@ def createInfo(path,name):
     info.writelines(['import { ColumnsType } from "antd/lib/table";\n',
     'import { FieldType, FormInputType } from "../../lib/form/types";\n'])
     info.writelines([f'export const {name}Columns: ColumnsType = [];\n',
-f'export const {name}Input: FormInputType = {{ title: "", fields: [], info: "" }};\n',
+f'export const {name}Inputs: FormInputType = {{ title: "", fields: [], info: "" }};\n',
 f'export const {name}Filters: FieldType[] = [];\n'])
 
 
@@ -35,7 +35,7 @@ def createComponent(path):
     create = open(f"{path}/create.tsx", "a+")
     create.writelines(["import React, { ReactElement } from 'react';\n",
                        'import GraphQLForm from "../../lib/form/GraphQLForm";\n', 
-                       'import { creatMutation } from "../../lib/utils";\n'
+                       'import { createMutation } from "../../lib/utils";\n'
                        'import { browserHistory } from "../../config";\n',
                         f'import {{{name}Inputs as inputs}} from "./info"\n'
 
@@ -45,11 +45,12 @@ def createComponent(path):
                        'export default function create({}: Props): ReactElement {\n',
                        'return (\n',
                        '<GraphQLForm\n',
+                       'title=""\n',
                        'span={12}\n',
                        'history={browserHistory}\n',
                        'inputs={inputs}\n',
                        'initialValues={{}}\n',
-                       'mutation={creatMutation("create_nested_client","CreateClientInput!" )}\n',
+                       'mutation={createMutation("create_nested_client","CreateClientInput!" )}\n',
                        '/>\n',
                        '  );\n',
                        '}\n'])
