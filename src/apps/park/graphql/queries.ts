@@ -8,6 +8,7 @@ export const ALL_ENGINES = gql`
         marque
         matricule
         model {
+          id
           designation
         }
         nature

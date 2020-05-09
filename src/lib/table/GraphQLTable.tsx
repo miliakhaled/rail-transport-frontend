@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { ColumnsType } from "antd/lib/table";
-import { Table, Modal, Row, Col, Button } from "antd";
+import { Table, Modal, Row, Col, Button, message, Select } from "antd";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { DocumentNode } from "graphql";
 import { usePagination } from "./utils";
@@ -19,6 +19,8 @@ import {
 import _ from "lodash";
 import RLTable, { ActionsType } from "./RLTable";
 import { FormInputType } from "../form/types";
+import { RLForm } from "../form";
+import { Store } from "antd/lib/form/interface";
 
 export interface QueryType {
   all: DocumentNode;
@@ -78,7 +80,7 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
   history,
 }) => {
   //const [variables, setVariables] = useState<OperationVariables>(initVariables);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState<any>({});
   const [visible, setVisible] = useState(false);
   // const onVariablesChange = (value: any) => {
   //   setVariables({ ...variables, ...value });
@@ -97,16 +99,30 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
   });
 
   let deleteItem: any;
+  let updateItem: any;
   try {
     [deleteItem] = useMutation(graphql.delete);
   } catch (e) {
     //console.log("no delete feature available ");
   }
-  const fetchMoreData = (rowpage: number, page: number) =>
+  try {
+    [updateItem] = useMutation(graphql.update);
+  } catch (e) {
+    //console.log("no delete feature available ");
+  }
+
+  const fetchMoreData = (rowpage: number, page: number) => {
+    console.log({
+      variables: {
+        offset: data && data.response.results.length,
+        limit: rowpage * page,
+      },
+    });
+
     fetchMore({
       variables: {
-        offset: data.length,
-        limit: rowpage * page,
+        offset: data && data.response.results.length,
+        limit: rowpage,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -120,6 +136,7 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
         });
       },
     });
+  };
   // const showDeleteConfirm = (item: { id: string }) => {
   //   confirm({
   //     title: "Voulez-vous supprimer cet objet?",
@@ -137,6 +154,23 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
   //     },
   //   });
   // };
+  const onDelete = (id: string | number) => {
+    deleteItem({ variables: { id } }).then((d: any) => {
+      refetch();
+    });
+  };
+  const onUpdate = (values: Store) => {
+    const variables = nested
+      ? { id: selected.id, input: { ...values } }
+      : { input: { ...values, id: selected.id } };
+
+    updateItem({ variables })
+      .then((d: any) => {
+        message.success("Operation avec succée");
+        refetch();
+      })
+      .catch((e: any) => console.log(e));
+  };
 
   return (
     <TableContext.Provider value={{ refetch }}>
@@ -182,8 +216,11 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
         filters={filters}
         variables={variables}
       ></GraphQLFilter> */}
+
       <br />
       <RLTable
+        onSelect={setSelected}
+        onUpdate={onUpdate}
         fetchMoreData={fetchMoreData}
         title={title}
         pagination={pagination}
@@ -196,55 +233,14 @@ const GraphQLTable: React.FC<GraphQLTableProps> = ({
         history={history}
         deleteColumn={deleteColumn}
         loading={loading}
-        onDelete={deleteItem}
+        onDelete={onDelete}
         //onUpdate={}
         refetch={refetch}
         fetchMore={fetchMore}
         updateColumn={updateColumn}
         updateLink={updateLink}
+        updateInputs={updateInputs}
       />
-      {/* <Table
-        rowKey="id"
-        expandable={expand}
-        loading={loading}
-        columns={allColumns}
-        dataSource={_.get(data, `response.results`, []).slice(
-          page * rowPerPage,
-          page * rowPerPage + rowPerPage
-        )}
-        pagination={{
-          total: _.get(data, "response.totalCount", 0),
-          showSizeChanger: true,
-          pageSize: rowPerPage,
-          pageSizeOptions: ["10", "20", "40"],
-          onShowSizeChange: (page, next) => {
-            onRowPerPageChange(next);
-          },
-          onChange: (p, rowpage: number) => {
-            fetchMore({
-              variables: {
-                offset: data.response.results.length,
-                limit: rowpage * p,
-              },
-              updateQuery: (prev: any, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                return Object.assign({}, prev, {
-                  response: {
-                    results: [
-                      ...prev.response.results,
-                      ...fetchMoreResult.response.results,
-                    ],
-                  },
-                });
-              },
-            });
-            onPageChange(p - 1);
-          },
-        }}
-        bordered
-        title={() => <div>{title}</div>}
-        size="middle"
-      /> */}
     </TableContext.Provider>
   );
 };

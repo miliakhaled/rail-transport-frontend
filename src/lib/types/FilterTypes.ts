@@ -111,4 +111,5 @@ export interface InputFieldType<T> {
   size?: "large" | "small" | "middle";
   rules?: Rule[];
   span?: number;
+  editable?: boolean;
 }

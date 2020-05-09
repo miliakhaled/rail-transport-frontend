@@ -19,9 +19,10 @@ interface RLFormProps {
   history?: RouteComponentProps["history"];
   span?: number;
   form?: FormInstance;
-  mode: "update" | "create";
+  mode?: "update" | "create";
   onFinish: ((values: Store) => void) | undefined;
   label?: boolean;
+  card?: boolean;
 }
 
 export default function RLForm({
@@ -33,6 +34,7 @@ export default function RLForm({
   form,
   onFinish,
   label = false,
+  card = true,
 }: RLFormProps): ReactElement {
   const [internalForm] = useForm();
   const [values, setValues] = useState({});
@@ -45,9 +47,11 @@ export default function RLForm({
     <div>
       <Card
         title={
-          <div style={{ display: "flex" }}>
-            {inputs.title} {inputs.info && <Info info={inputs.info} />}
-          </div>
+          card ? (
+            <div style={{ display: "flex" }}>
+              {inputs.title} {inputs.info && <Info info={inputs.info} />}
+            </div>
+          ) : null
         }
         style={{ marginBottom: 16 }}
         // actions={[

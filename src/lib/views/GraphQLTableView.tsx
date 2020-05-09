@@ -1,6 +1,9 @@
 import React, { ReactElement, useState } from "react";
 import { ColumnsType } from "antd/lib/table";
-import GraphQLTable, { GraphQLTableProps, QueryType } from "../table/Table";
+import GraphQLTable, {
+  GraphQLTableProps,
+  QueryType,
+} from "../table/GraphQLTable";
 import { RouteComponentProps } from "react-router-dom";
 import { OperationVariables } from "apollo-boost";
 import { ViewToolbar } from ".";

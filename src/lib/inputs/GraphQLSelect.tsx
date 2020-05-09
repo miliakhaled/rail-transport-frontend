@@ -18,6 +18,7 @@ export default function SelectControl({
     defaultValue,
     query,
     variables,
+
     mode,
     filters = [],
     show = "designation",
@@ -25,7 +26,14 @@ export default function SelectControl({
     get_items,
     divider,
   } = fieldDef.properties as SelectType;
-  const { size = "large", name, title, required, rules = [] } = fieldDef;
+  const {
+    size = "large",
+    name,
+    title,
+    required,
+    rules = [],
+    editable = true,
+  } = fieldDef;
 
   const { data, loading } = useQuery(query, {
     variables: {
@@ -61,6 +69,7 @@ export default function SelectControl({
       style={{ width: "100%" }}
     >
       <Select
+        disabled={!editable}
         // key={key}
         size={size}
         onChange={

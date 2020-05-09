@@ -44,6 +44,7 @@ export const parkInputs: FormInputType = {
           "designation",
           { engine_type: ["designation"] },
         ]),
+        get: "model.id",
       },
     },
     {
@@ -66,6 +67,48 @@ export const parkInputs: FormInputType = {
       name: "year",
       title: "Année",
       properties: { type: "date", picker: "year" },
+    },
+  ],
+  info: "creer une nouvelle véhicule dans le park Rail Logistic",
+};
+export const parkUpdate: FormInputType = {
+  title: "Mettre à jour Véhicule",
+  fields: [
+    {
+      name: "model",
+      editable: false,
+      title: "Model",
+      required: true,
+      properties: {
+        divider: "engine_type.designation",
+        type: "select",
+        query: simple_query("enginemodels", [
+          "designation",
+          { engine_type: ["designation"] },
+        ]),
+        get: "model.id",
+      },
+    },
+    {
+      name: "marque",
+      title: "Marque",
+      properties: { type: "text" },
+    },
+    {
+      name: "matricule",
+      required: true,
+      title: "Matricule",
+      properties: { type: "text" },
+    },
+    {
+      name: "nature",
+      title: "Nature",
+      properties: { type: "text" },
+    },
+    {
+      name: "year",
+      title: "Année",
+      properties: { type: "number" },
     },
   ],
   info: "creer une nouvelle véhicule dans le park Rail Logistic",

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { parkColumns as columns } from "./info";
+import { parkColumns as columns, parkInputs, parkUpdate } from "./info";
 import { parkFilters as filters } from "./info";
 import { browserHistory } from "../../config";
 import GraphQLTableView from "../../lib/views/GraphQLTableView";
@@ -20,14 +20,14 @@ export default function list({}: Props): ReactElement {
         deleteColumn={false}
         updateColumn={true}
         updateInputs={{
-          title: "mettre à jour",
-          fields: [],
+          title: parkUpdate.title,
+          fields: parkUpdate.fields,
         }}
         history={browserHistory}
         graphql={{
           all: ALL_ENGINES,
-          // delete: deleteMutation(""),
-          // update: createMutation("", ""),
+          delete: deleteMutation("delete_engine"),
+          update: createMutation("update_engine", "EngineUpdateGenericType!"),
         }}
       />
     </div>

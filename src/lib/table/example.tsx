@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import GraphQLTable from "./Table";
+import GraphQLTable from "./GraphQLTable";
 import Tag from "antd/lib/tag";
 import _ from "lodash";
 import gql from "graphql-tag";
